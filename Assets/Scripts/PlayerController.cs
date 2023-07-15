@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         _input.isGrounded = Physics2D.OverlapCircle(feetPostion.position, collisionRadius, groundLayer);
 
-        float inputH = Input.GetAxisRaw("Horizontal");
+        float inputH = Input.GetAxis("Horizontal");
         _input.move = new Vector2(inputH, rb.velocity.y);
 
         
