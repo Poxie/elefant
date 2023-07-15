@@ -11,6 +11,8 @@ public class FallingPlatformTrap : MonoBehaviour
     int dir = 1;
     float timerForDir;
 
+    Vector2 playerVelocity;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,8 @@ public class FallingPlatformTrap : MonoBehaviour
 
     private void Update() {
         timerForDir += Time.deltaTime;
-        Debug.Log(timerForDir);
+                Debug.Log(playerVelocity.y);
+
     }
 
     // Update is called once per frame
@@ -32,5 +35,18 @@ public class FallingPlatformTrap : MonoBehaviour
         
 
         transform.Translate(dir * Vector3.up * speed * Time.fixedDeltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
+        playerVelocity = playerRb.velocity;
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+        Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
+        Debug.Log("CIRREMT:" + playerRb.velocity.y);
+        if(playerRb.velocity.y == 0) {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -playerVelocity.y * Time.deltaTime, transform.position.z), Time.deltaTime);
+        }
     }
 }
