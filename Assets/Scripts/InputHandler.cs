@@ -3,13 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour {
-    // Start is called before the first frame update
-    void Start() {
-        
-    }
-
-    // Update is called once per frame
-    void Update() {
-        
-    }
+    public bool isJumping {get; set;}
+    public bool isGrounded {get; set;}
+    public Vector2 move {get;set;} 
 }
