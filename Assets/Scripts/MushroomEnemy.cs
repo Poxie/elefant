@@ -36,19 +36,19 @@ public class MushroomEnemy : MonoBehaviour {
         if(transform.position.x <= maxWalkLeftXPosition) {
             idleTempTimer = idleTimer;
             dir = -dir;
-            transform.eulerAngles = new Vector3(0,0,0);
+            transform.eulerAngles = new Vector3(0,180,0);
         }
         if(transform.position.x >= maxWalkRightXPosition) {
             idleTempTimer = idleTimer;
             dir = -dir;
-            transform.eulerAngles = new Vector3(0,180,0);
+            transform.eulerAngles = new Vector3(0,0,0);
         }
         if(idleTempTimer <= 0) {
             
         }
-        animator.SetFloat("Move", rb.velocity.x);
+        animator.SetFloat("Move", Mathf.Abs(rb.velocity.x));
     }
     private void FixedUpdate() {
-        rb.MovePosition(speed * Vector3.left * dir * Time.fixedDeltaTime);
+        rb.velocity = new Vector2(speed * dir, rb.velocity.y); //To fast.
     }
 }
