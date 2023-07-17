@@ -35,13 +35,7 @@ public class PlayerLife: MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.gameObject.CompareTag("Fire")) {
-            Die();
-        }
-    }
-
-    void Die() {
+    public void Die() {
         dead = true;
         animationScript.enabled = false;
         animator.Play("Death");
