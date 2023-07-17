@@ -27,11 +27,9 @@ public class MushroomEnemy : MonoBehaviour {
             timerForIdle = idleTimer;
             isIdle = true;
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other) {
+        Debug.Log("fu");
         if(other.gameObject.CompareTag("PlayerHitbox")) {
-            Debug.Log("fu");
+            
             other.transform.parent.GetComponent<PlayerLife>().Die();
         }
     }
