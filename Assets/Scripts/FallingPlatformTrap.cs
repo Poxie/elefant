@@ -57,8 +57,8 @@ public class FallingPlatformTrap : MonoBehaviour
         }
     }
 
+
     private void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log(theRB.IsTouching(other.collider));
         if(theRB.IsTouching(other.collider)) {
             isTouched = true;
         }
