@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour {
     string scaleDeathDirection = "up";
     bool showingDeathScreen = false;
     CanvasGroup deathScreenGroup;
 
+    [SerializeField] TextMeshProUGUI deathCounter;
     [SerializeField] RectTransform deathScreen;
     [SerializeField] RectTransform deathText;
 
@@ -46,5 +48,9 @@ public class UIManager : MonoBehaviour {
         deathScreenGroup.alpha = 0;
         deathText.localScale = new Vector3(0,0,0);
         showingDeathScreen = true;
+    }
+
+    public void UpdateDeathCounter(int deathCount) {
+        deathCounter.text = "Deaths: " + deathCount.ToString();
     }
 }

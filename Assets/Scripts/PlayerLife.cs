@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerLife: MonoBehaviour {
+    int deathCounter = 0;
     bool dead = false;
 
     Rigidbody2D rb;
@@ -37,7 +38,13 @@ public class PlayerLife: MonoBehaviour {
         }
     }
 
+    void updateDeathCounter() {
+        deathCounter++;
+        uiManager.UpdateDeathCounter(deathCounter);
+    }
+
     public void Die() {
+        updateDeathCounter();
         dead = true;
         animationScript.enabled = false;
         animator.Play("Death");
