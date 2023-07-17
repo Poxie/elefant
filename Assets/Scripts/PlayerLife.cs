@@ -40,7 +40,6 @@ public class PlayerLife: MonoBehaviour {
 
     void updateDeathCounter() {
         deathCounter++;
-        uiManager.UpdateDeathCounter(deathCounter);
     }
 
     public void Die() {

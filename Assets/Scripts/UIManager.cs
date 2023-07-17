@@ -49,8 +49,4 @@ public class UIManager : MonoBehaviour {
         deathText.localScale = new Vector3(0,0,0);
         showingDeathScreen = true;
     }
-
-    public void UpdateDeathCounter(int deathCount) {
-        deathCounter.text = "Deaths: " + deathCount.ToString();
-    }
 }
