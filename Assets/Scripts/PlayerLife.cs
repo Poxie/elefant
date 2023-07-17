@@ -10,6 +10,7 @@ public class PlayerLife: MonoBehaviour {
     Animator animator;
     PlayerAnimations animationScript;
     PlayerController playerController;
+    UIManager uiManager;
 
     // Start is called before the first frame update
     void Start() {
@@ -17,6 +18,7 @@ public class PlayerLife: MonoBehaviour {
         playerController = GetComponent<PlayerController>();
         animator = transform.Find("Sprite").GetComponent<Animator>();
         animationScript = transform.Find("Sprite").GetComponent<PlayerAnimations>();
+        uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -40,5 +42,6 @@ public class PlayerLife: MonoBehaviour {
         animationScript.enabled = false;
         animator.Play("Death");
         Destroy(rb);
+        uiManager.ShowDeathScreen();
     }
 }
