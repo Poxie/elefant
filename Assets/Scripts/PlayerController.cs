@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] InputHandler _input;
 
+    [SerializeField] LayerMask enemyLayer;
+
+
     [Header("Movement variables")]
     [SerializeField] float movementSpeed;
     [SerializeField] float jumpForce;
@@ -27,6 +30,7 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         _input.isGrounded = Physics2D.OverlapCircle(feetPostion.position, collisionRadius, groundLayer);
+        _input.jumpedOnEnemy = Physics2D.OverlapCircle(feetPostion.position, collisionRadius, enemyLayer);
 
         float inputH = Input.GetAxis("Horizontal");
         _input.move = new Vector2(inputH, rb.velocity.y);
