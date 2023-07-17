@@ -9,9 +9,14 @@ public class UIManager : MonoBehaviour {
     bool showingDeathScreen = false;
     CanvasGroup deathScreenGroup;
 
+    [Header("Death variables")]
     [SerializeField] TextMeshProUGUI deathCounter;
     [SerializeField] RectTransform deathScreen;
     [SerializeField] RectTransform deathText;
+    [SerializeField] float deathSmallestScale = 1f;
+    [SerializeField] float deathLargestScale = 1.25f;
+    [SerializeField] float deathBounceSpeed = 5;
+    [SerializeField] float deathScaleSpeed = 2;
 
     // Start is called before the first frame update
     void Start() {
@@ -24,19 +29,19 @@ public class UIManager : MonoBehaviour {
             if(deathScreenGroup.alpha < 1) {
                 deathScreenGroup.alpha += Time.deltaTime;
             }
-            if(deathText.localScale.x < 38) {
-                float scale = deathText.localScale.x + Time.deltaTime * 200;
+            if(deathText.localScale.x < 1) {
+                float scale = deathText.localScale.x + Time.deltaTime * deathScaleSpeed;
                 deathText.localScale = new Vector3(scale, scale, scale);
             } else {
                 float scale;
                 if(scaleDeathDirection == "up") {
-                    scale = deathText.localScale.x + Time.deltaTime * 20;
+                    scale = deathText.localScale.x + Time.deltaTime / deathBounceSpeed;
                 } else {
-                    scale = deathText.localScale.x - Time.deltaTime * 20;
+                    scale = deathText.localScale.x - Time.deltaTime / deathBounceSpeed;
                 }
-                if(scale > 48) {
+                if(scale > deathLargestScale) {
                     scaleDeathDirection = "down";
-                } else if(scale < 40) {
+                } else if(scale <= deathSmallestScale) {
                     scaleDeathDirection = "up";
                 }
                 deathText.localScale = new Vector3(scale, scale, scale);

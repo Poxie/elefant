@@ -2992,6 +2992,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 784106752444410431, guid: d86ee4668765b52478dc39bf8b452b39, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3673541497298637147, guid: d86ee4668765b52478dc39bf8b452b39, type: 3}
+      propertyPath: deathScaleSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3673541497298637147, guid: d86ee4668765b52478dc39bf8b452b39, type: 3}
+      propertyPath: deathBounceSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3673541497298637147, guid: d86ee4668765b52478dc39bf8b452b39, type: 3}
+      propertyPath: deathLargestScale
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3673541497298637147, guid: d86ee4668765b52478dc39bf8b452b39, type: 3}
+      propertyPath: deathSmallestScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4230050638776418897, guid: d86ee4668765b52478dc39bf8b452b39, type: 3}
       propertyPath: m_Name
       value: Canvas
