@@ -278,7 +278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 4.610321}
+  m_AnchoredPosition: {x: 0, y: 1.1864519}
   m_SizeDelta: {x: 471.89, y: 70.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &56691288
@@ -394,8 +394,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &204043536
-Transform:
+--- !u!224 &204043536
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -411,6 +411,11 @@ Transform:
   m_Father: {fileID: 1361572911}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 83}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &262712827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,6 +1022,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d529a5e9a9d46439fa2455d6dd3364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathScreen: {fileID: 1361572911}
+  deathText: {fileID: 204043536}
 --- !u!1 &1034576905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1104,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.5671234}
+  m_AnchoredPosition: {x: 0, y: -0.85674286}
   m_SizeDelta: {x: 511.95, y: 45.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1095026564

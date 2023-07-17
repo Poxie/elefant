@@ -7,13 +7,12 @@ public class UIManager : MonoBehaviour {
     string scaleDeathDirection = "up";
     bool showingDeathScreen = false;
     CanvasGroup deathScreenGroup;
-    Transform deathScreen;
-    Transform deathText;
+
+    [SerializeField] RectTransform deathScreen;
+    [SerializeField] RectTransform deathText;
 
     // Start is called before the first frame update
     void Start() {
-        deathScreen = transform.Find("DeathScreen");
-        deathText = deathScreen.Find("DeathText");
         deathScreenGroup = deathScreen.GetComponent<CanvasGroup>();
     }
 
