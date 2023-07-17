@@ -9,9 +9,6 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] InputHandler _input;
 
-    [SerializeField] LayerMask enemyLayer;
-
-
     [Header("Movement variables")]
     [SerializeField] float movementSpeed;
     [SerializeField] float jumpForce;
@@ -30,7 +27,6 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         _input.isGrounded = Physics2D.OverlapCircle(feetPostion.position, collisionRadius, groundLayer);
-        _input.jumpedOnEnemy = Physics2D.OverlapCircle(feetPostion.position, collisionRadius, enemyLayer);
 
         float inputH = Input.GetAxis("Horizontal");
         _input.move = new Vector2(inputH, rb.velocity.y);
@@ -58,5 +54,14 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
         rb.velocity = new Vector2(_input.move.x * movementSpeed, rb.velocity.y);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag == "Enemy") {
+            if(Mathf.Abs(Vector3.Dot(Vector3.up, other.transform.position - transform.position)) >= 0.6f) {
+                other.gameObject.GetComponent<EnemyUnit>().TakeDamage();
+            }
+        }
+       
     }
 }
