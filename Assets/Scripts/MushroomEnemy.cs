@@ -27,7 +27,6 @@ public class MushroomEnemy : MonoBehaviour {
             timerForIdle = idleTimer;
             isIdle = true;
         }
-        Debug.Log("fu");
         if(other.gameObject.CompareTag("PlayerHitbox")) {
             
             other.transform.parent.GetComponent<PlayerLife>().Die();
