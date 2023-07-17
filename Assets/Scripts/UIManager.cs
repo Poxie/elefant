@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
+    string scaleDeathDirection = "up";
     bool showingDeathScreen = false;
     CanvasGroup deathScreenGroup;
     Transform deathScreen;
@@ -24,6 +25,19 @@ public class UIManager : MonoBehaviour {
             }
             if(deathText.localScale.x < 38) {
                 float scale = deathText.localScale.x + Time.deltaTime * 200;
+                deathText.localScale = new Vector3(scale, scale, scale);
+            } else {
+                float scale;
+                if(scaleDeathDirection == "up") {
+                    scale = deathText.localScale.x + Time.deltaTime * 20;
+                } else {
+                    scale = deathText.localScale.x - Time.deltaTime * 20;
+                }
+                if(scale > 48) {
+                    scaleDeathDirection = "down";
+                } else if(scale < 40) {
+                    scaleDeathDirection = "up";
+                }
                 deathText.localScale = new Vector3(scale, scale, scale);
             }
         }
