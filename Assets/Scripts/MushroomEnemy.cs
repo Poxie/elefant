@@ -4,51 +4,41 @@ using UnityEngine;
 
 public class MushroomEnemy : MonoBehaviour {
 
-    [SerializeField] Transform maxWalkRight;
-    [SerializeField] Transform maxWalkLeft;
     [SerializeField] float speed;
     [SerializeField] float idleTimer;
 
     Animator animator;
     Rigidbody2D rb;
 
-    float maxWalkRightXPosition;
-    float maxWalkLeftXPosition;
-
-    float idleTempTimer;
 
     int dir = 1;
     // Start is called before the first frame update
     void Start() {
-        maxWalkRightXPosition = maxWalkRight.position.x;
-        maxWalkLeftXPosition = maxWalkLeft.position.x;
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
         
-        Destroy(maxWalkRight.gameObject);
-        Destroy(maxWalkLeft.gameObject);
     }
 
     // Update is called once per frame
     void Update() {
 
-        if(transform.position.x <= maxWalkLeftXPosition) {
-            idleTempTimer = idleTimer;
-            dir = -dir;
-            transform.eulerAngles = new Vector3(0,180,0);
-        }
-        if(transform.position.x >= maxWalkRightXPosition) {
-            idleTempTimer = idleTimer;
-            dir = -dir;
-            transform.eulerAngles = new Vector3(0,0,0);
-        }
-        if(idleTempTimer <= 0) {
-            
-        }
+
         animator.SetFloat("Move", Mathf.Abs(rb.velocity.x));
     }
     private void FixedUpdate() {
-        rb.velocity = new Vector2(speed * dir, rb.velocity.y); //To fast.
+        rb.velocity = new Vector2(speed * dir * (isIdle ? 0 : 1), rb.velocity.y); //To fast.
+    }
+    
+    private void LateUpdate() {
+        if(dir > 0) {
+            transform.eulerAngles = new Vector3(0,180,0);
+        } else if (dir < 0) {
+            transform.eulerAngles = new Vector3(0,0,0);
+        }
     }
 }
