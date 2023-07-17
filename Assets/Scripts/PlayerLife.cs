@@ -12,6 +12,7 @@ public class PlayerLife: MonoBehaviour {
     Animator animator;
     PlayerAnimations animationScript;
     PlayerController playerController;
+    [SerializeField] SoundManager soundManager;
     UIManager uiManager;
 
     // Structure for stats json
@@ -76,5 +77,6 @@ public class PlayerLife: MonoBehaviour {
         animator.Play("Death");
         Destroy(rb);
         uiManager.ShowDeathScreen();
+        soundManager.PlaySound("deathGingle");
     }
 }
