@@ -3,50 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FallingPlatformTrap : MonoBehaviour
-{
+{   
+    
+    private Rigidbody2D theRB;
+    private Animator animator;
 
-    [SerializeField] float speed;
-    [SerializeField] float timeBeforeChangeDir;
+    private Vector2 initialPosition;
+    //float originalY;
+    [SerializeField] private float speed = 5;
+    [SerializeField] private float floatStrength = .1f;
+    [SerializeField] private float offTime = 0.8f;
 
-    int dir = 1;
-    float timerForDir;
+    bool isTouched = false;
 
-    Vector2 playerVelocity;
-
-    // Start is called before the first frame update
+    float timerBeforeOff = 0;
+    ParticleSystem particles;
+    bool iniateFall = false;
+ 
     void Start()
     {
-        
+        theRB = this.GetComponent<Rigidbody2D>();
+        animator = this.GetComponent<Animator>();
+        //initialPosition = transform.position;
+        initialPosition = theRB.position;
+        //this.originalY = this.transform.position.y;
+
+        timerBeforeOff = offTime;
+        particles = GetComponentInChildren<ParticleSystem>();
+
     }
 
     private void Update() {
-        timerForDir += Time.deltaTime;
-                Debug.Log(playerVelocity.y);
-
+        if(isTouched == true) {
+            timerBeforeOff -= Time.deltaTime;
+        }
+        if(timerBeforeOff <= 0) {
+            particles.Stop();
+            animator.Play("Off");
+        }
+        if(timerBeforeOff + 0.6f <= 0) {
+            iniateFall = true;
+        }
     }
-
-    // Update is called once per frame
+ 
     void FixedUpdate()
     {
-        if(timerForDir >= timeBeforeChangeDir) {
-            timerForDir = 0;
-            dir = -dir;
+        //transform.position = new Vector2(transform.position.x, originalY + ((float)Mathf.Sin(Time.time * speed) * floatStrength));
+ 
+        float newY = Mathf.Sin(Time.time * speed) * floatStrength;
+        Vector2 position = new Vector2(0, newY) + initialPosition;
+        if(iniateFall == false) {
+            theRB.MovePosition(position);
         }
-        
-
-        transform.Translate(dir * Vector3.up * speed * Time.fixedDeltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
-        playerVelocity = playerRb.velocity;
-    }
-
-    private void OnTriggerStay2D(Collider2D other) {
-        Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
-        Debug.Log("CIRREMT:" + playerRb.velocity.y);
-        if(playerRb.velocity.y == 0) {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -playerVelocity.y * Time.deltaTime, transform.position.z), Time.deltaTime);
+    private void OnCollisionEnter2D(Collision2D other) {
+        Debug.Log(theRB.IsTouching(other.collider));
+        if(theRB.IsTouching(other.collider)) {
+            isTouched = true;
         }
     }
 }
