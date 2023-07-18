@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     float jumpTimeCounter;
 
     [SerializeField] InputHandler _input;
+    [SerializeField] PlayerData _data;
 
     [Header("Movement variables")]
     [SerializeField] float movementSpeed;
@@ -60,6 +61,8 @@ public class PlayerController : MonoBehaviour {
         if(other.gameObject.tag == "Enemy") {
             if(Mathf.Abs(Vector3.Dot(Vector3.up, other.transform.position - transform.position)) >= 0.6f) {
                 other.gameObject.GetComponent<EnemyUnit>().TakeDamage();
+                rb.velocity = Vector2.up * jumpForce * 1.65f;
+
             }
         }
        
