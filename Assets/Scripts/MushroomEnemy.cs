@@ -28,8 +28,9 @@ public class MushroomEnemy : MonoBehaviour {
             isIdle = true;
         }
         if(other.gameObject.CompareTag("PlayerHitbox")) {
-            
-            other.transform.parent.GetComponent<PlayerLife>().Die();
+            if(Mathf.Abs(Vector3.Dot(Vector3.up, other.transform.position - transform.position)) < 0.6f) { 
+                other.transform.parent.GetComponent<PlayerLife>().Die(); 
+            }
         }
     }
 
