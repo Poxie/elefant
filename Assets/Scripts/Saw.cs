@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class Saw: MonoBehaviour {
     [SerializeField] Instruction[] instructions;
+    [SerializeField] Vector3 startPosition = Vector3.zero;
 
     int instructionIndex = 1;
     bool preventAnimation = false;
+    bool isFirstIterration = true;
     float startTime = 0;
 
     [System.Serializable]
     class Instruction {
         public int speed = 1;
-        public Vector2 position;
+        public Vector3 position;
     }
 
     // Awake is called before the start function
     void Awake() {
-        transform.position = new Vector3(instructions[0].position.x, instructions[0].position.y, 0);
+        startPosition = startPosition == Vector3.zero ? instructions[0].position : startPosition;
+        transform.position = startPosition;
     }
 
-    // Update is called once per frame
     void Update() {
         if(instructions.Length == 1) {
             Destroy(this);
@@ -28,20 +30,25 @@ public class Saw: MonoBehaviour {
         }
 
         Instruction prevInstruction = instructions[instructionIndex - 1 < 0 ? instructions.Length - 1 : instructionIndex - 1];
+        Vector2 prevPosition = prevInstruction.position;
         Instruction nextInstruction = instructions[instructionIndex];
         Vector2 nextPosition = nextInstruction.position;
 
-        if(startTime == 0 && transform.position.y == prevInstruction.position.y && transform.position.x == prevInstruction.position.x) {
+        if(isFirstIterration) {
+            prevPosition = startPosition;
+        }
+        if(startTime == 0 && transform.position.y == prevPosition.y && transform.position.x == prevPosition.x) {
             startTime = Time.time;
         }
-        float journeyLength = Vector3.Distance(prevInstruction.position, nextPosition);
+        float journeyLength = Vector3.Distance(prevPosition, nextPosition);
         float distanceCovered = (Time.time - startTime) * nextInstruction.speed;
 
         float fractionOfJourney = distanceCovered / journeyLength;
 
-        transform.position = Vector3.Lerp(prevInstruction.position, nextPosition, fractionOfJourney);
+        transform.position = Vector3.Lerp(prevPosition, nextPosition, fractionOfJourney);
 
         if(transform.position.y == nextPosition.y && transform.position.x == nextPosition.x) {
+            isFirstIterration = false;
             startTime = Time.time;
             instructionIndex++;
             if(instructionIndex >= instructions.Length) {
