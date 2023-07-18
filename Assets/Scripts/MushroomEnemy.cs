@@ -4,33 +4,29 @@ using UnityEngine;
 
 public class MushroomEnemy : MonoBehaviour {
 
-    [SerializeField] float speed;
-    [SerializeField] float idleTimer;
-
+   
     Animator animator;
     Rigidbody2D rb;
+    EnemyUnit unit;
 
     int dirX = 1;
     bool isIdle = false;
     float timerForIdle;
+     
 
     // Start is called before the first frame update
     void Start() {
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        unit = GetComponent<EnemyUnit>();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("EnemyWall")) {
             dirX *= -1;
-            timerForIdle = idleTimer;
+            timerForIdle = unit.idleTimer;
             isIdle = true;
-        }
-        if(other.gameObject.CompareTag("PlayerHitbox")) {
-            if(Mathf.Abs(Vector3.Dot(Vector3.up, other.transform.position - transform.position)) < 0.6f) { 
-                other.transform.parent.GetComponent<PlayerLife>().Die(); 
-            }
         }
     }
 
@@ -45,10 +41,13 @@ public class MushroomEnemy : MonoBehaviour {
                 isIdle = false;
             }
         }
+        if(unit.isDead) {
+            Destroy(this);
+        }
 
     }
     private void FixedUpdate() {
-        rb.velocity = new Vector2(speed * dirX * (isIdle ? 0 : 1), rb.velocity.y); //To fast.
+        rb.velocity = new Vector2(unit.speed * dirX * (isIdle ? 0 : 1), rb.velocity.y); 
     }
     
     private void LateUpdate() {

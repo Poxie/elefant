@@ -19,12 +19,12 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Trap
   - Ground
   - Enemy
   - Player
   - 
-  - 
+  - NoCollider
   - 
   - 
   - 

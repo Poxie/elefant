@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Enemy") {
-            if(Mathf.Abs(Vector3.Dot(Vector3.up, other.transform.position - transform.position)) >= 0.6f) {
+            if(Mathf.Abs(Vector3.Dot(Vector3.up, other.transform.position - transform.position)) >= 0.4f) {
                 other.gameObject.GetComponent<EnemyUnit>().TakeDamage();
                 rb.velocity = Vector2.up * jumpForce * 1.65f;
                 
