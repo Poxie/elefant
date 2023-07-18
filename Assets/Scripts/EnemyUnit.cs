@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyUnit : MonoBehaviour
+public class EnemyUnit: MonoBehaviour
 {
     [SerializeField] int currentHP = 1;
     [SerializeField] Animator animator;
