@@ -104,7 +104,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -199,3 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHP: 1
+  animator: {fileID: 2050670831321862669}
+  rb: {fileID: 3247980006894003247}
+  collider2D: {fileID: 5153178552221809054}
+  script: {fileID: 4522545592856445367}
