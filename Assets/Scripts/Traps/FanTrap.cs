@@ -17,7 +17,9 @@ public class FanTrap: MonoBehaviour {
     }
 
     void OnTriggerStay2D(Collider2D collision) {
-        Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.up * fanFloatVelocity;
+        if(collision.gameObject.CompareTag("Player")) {
+            Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
+            rb.velocity = Vector2.up * fanFloatVelocity;
+        }
     }
 }
