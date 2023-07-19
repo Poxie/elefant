@@ -8,6 +8,7 @@ public class PlayerController : NetworkBehaviour {
     Rigidbody2D rb;
     
     float jumpTimeCounter;
+    float knockbackTimer = 0.5f;
 
     [SerializeField] InputHandler _input;
 
@@ -67,7 +68,7 @@ public class PlayerController : NetworkBehaviour {
 
 
         float inputH = Input.GetAxis("Horizontal");
-        _input.move = new Vector2(inputH, rb.velocity.y);
+        _input.move = new Vector2(inputH, Physics2D.gravity.y *rb.gravityScale);
 
         
         if(Input.GetKeyDown(KeyCode.Space) && _input.isGrounded) {
@@ -88,10 +89,26 @@ public class PlayerController : NetworkBehaviour {
         if(Input.GetKeyUp(KeyCode.Space)) {
             _input.isJumping = false;
         }
-    }
+
+        if(_input.temporaryMove.magnitude != 0) {
+            float moveInputAmpfliy = 1.75f;
+            knockbackTimer -= Time.deltaTime;
+            if(_input.temporaryMove.x != 0) {
+                _input.temporaryMove += new Vector2(_input.move.x * Time.deltaTime * movementSpeed * moveInputAmpfliy, 0);
+            }
+            if(_input.temporaryMove.y != 0) {
+                _input.temporaryMove -= new Vector2(0, -_input.move.y * Time.deltaTime);
+            }
+
+            if(_input.isGrounded && knockbackTimer <= 0) {
+                knockbackTimer = 0.5f;
+                _input.temporaryMove = Vector2.zero;
+            }
+        }
+    } 
 
     void FixedUpdate() {
-        rb.velocity = new Vector2(_input.move.x * movementSpeed, rb.velocity.y);
+        rb.velocity = new Vector2((_input.temporaryMove.x != 0 ? _input.temporaryMove.x : (_input.move.x * movementSpeed)), _input.temporaryMove.y != 0 ? _input.temporaryMove.y : rb.velocity.y);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

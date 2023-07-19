@@ -7,4 +7,5 @@ public class InputHandler : MonoBehaviour {
     public bool jumpedOnEnemy {get; set;} //maybe remove
     public bool isGrounded {get; set;}
     public Vector2 move {get;set;} 
+    public Vector2 temporaryMove {get;set;} 
 }
