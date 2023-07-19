@@ -36,6 +36,7 @@ public class PlayerController : NetworkBehaviour {
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
             serializer.SerializeValue(ref _int);
             serializer.SerializeValue(ref _bool);
+            serializer.SerializeValue(ref message);
         }
     }
 
