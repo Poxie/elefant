@@ -18,7 +18,7 @@ public class Background: MonoBehaviour {
         startBottom = rect.offsetMin.y;
 
         // Getting random background
-        Sprite background = backgrounds[0];
+        Sprite background = backgrounds[Random.Range(0, backgrounds.Length)];
         GetComponent<Image>().sprite = background;
     }
 
