@@ -68,7 +68,7 @@ public class PlayerController : NetworkBehaviour {
 
 
         float inputH = Input.GetAxis("Horizontal");
-        _input.move = new Vector2(inputH, Physics2D.gravity.y *rb.gravityScale);
+        _input.move = new Vector2(inputH, rb.velocity.y);
 
         
         if(Input.GetKeyDown(KeyCode.Space) && _input.isGrounded) {
@@ -91,13 +91,13 @@ public class PlayerController : NetworkBehaviour {
         }
 
         if(_input.temporaryMove.magnitude != 0) {
-            float moveInputAmpfliy = 1.75f;
+            float moveInputAmpfliy = 1.5f;
             knockbackTimer -= Time.deltaTime;
             if(_input.temporaryMove.x != 0) {
                 _input.temporaryMove += new Vector2(_input.move.x * Time.deltaTime * movementSpeed * moveInputAmpfliy, 0);
             }
             if(_input.temporaryMove.y != 0) {
-                _input.temporaryMove -= new Vector2(0, -_input.move.y * Time.deltaTime);
+                _input.temporaryMove += new Vector2(0, Physics2D.gravity.y * rb.gravityScale * Time.deltaTime);
             }
 
             if(_input.isGrounded && knockbackTimer <= 0) {

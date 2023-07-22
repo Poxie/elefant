@@ -27,8 +27,11 @@ public class PlayerAnimations : MonoBehaviour {
         }
 
         if(_input.isGrounded != true) {
-            if(_input.move.y > 0)
-                animator.Play("Jump");
+            if(_input.move.y > 0) {
+                animator.Play("Jump"); 
+                Debug.Log("He");
+            }
+                
             else if (_input.move.y < 0){
                 animator.Play("Fall");
             }
