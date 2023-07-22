@@ -11,42 +11,51 @@ public class Saw: MonoBehaviour {
     bool isFirstIterration = true;
     float startTime = 0;
 
+    // Instruction blueprint
     [System.Serializable]
     class Instruction {
         public int speed = 1;
         public Vector3 position;
     }
 
-    // Awake is called before the start function
     void Awake() {
+        // Checking if a start position has been set
         startPosition = startPosition == Vector3.zero ? instructions[0].position : startPosition;
+
+        // Positioning the saw at the start position
         transform.position = startPosition;
     }
 
     void Update() {
+        // If saw is static, prevent movement code from running
         if(instructions.Length == 1) {
             Destroy(this);
             return;
         }
 
+        // Fetching current and next saw instruction - placement/speed of next position it should go to
         Instruction prevInstruction = instructions[instructionIndex - 1 < 0 ? instructions.Length - 1 : instructionIndex - 1];
         Vector2 prevPosition = prevInstruction.position;
         Instruction nextInstruction = instructions[instructionIndex];
         Vector2 nextPosition = nextInstruction.position;
 
+        // If is initial iteration setup start time for animation
+        // And use start position as current position instead of first instruction position
         if(isFirstIterration) {
             prevPosition = startPosition;
-        }
-        if(startTime == 0 && transform.position.y == prevPosition.y && transform.position.x == prevPosition.x) {
             startTime = Time.time;
         }
+
+        // Determining where the saw is currently positioned
         float journeyLength = Vector3.Distance(prevPosition, nextPosition);
         float distanceCovered = (Time.time - startTime) * nextInstruction.speed;
 
         float fractionOfJourney = distanceCovered / journeyLength;
 
+        // Updating saw position with above calculated portion of animation
         transform.position = Vector3.Lerp(prevPosition, nextPosition, fractionOfJourney);
 
+        // If it reaches its next position, reset start time and move to next instruction
         if(transform.position.y == nextPosition.y && transform.position.x == nextPosition.x) {
             isFirstIterration = false;
             startTime = Time.time;
